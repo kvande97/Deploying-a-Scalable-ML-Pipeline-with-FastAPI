@@ -38,7 +38,6 @@ app = FastAPI()
 # TODO: create a GET on the root giving a welcome message
 @app.get("/")
 async def get_root():
-    """ Say hello!"""
     return {"message": "Hello! Welcome to Kyle's ML API!"}
 
 
@@ -66,5 +65,6 @@ async def post_inference(data: Data):
     data_processed, _, _, _ = process_data(
         data, cat_features, training=False, encoder=encoder
     )
-    _inference = inference(data_processed, model)
-    return {"result": apply_label(_inference)}
+    _inference = inference(model, data_processed)
+    result = apply_label(_inference)
+    return {"result": result}
